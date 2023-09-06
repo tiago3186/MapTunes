@@ -1,0 +1,33 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #D51007; /* Vermelho parecido com o Last.fm */
+    color: #FFFFFF; /* Texto branco */
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #F8F8F8; /* Cinza claro para a tabela */
+    color: #333333; /* Texto escuro */
+}
+
+table, th, td {
+    border: 1px solid #333333;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #333333; /* Fundo escuro para os cabeçalhos da tabela */
+    color: #FFFFFF; /* Texto branco nos cabeçalhos */
+}

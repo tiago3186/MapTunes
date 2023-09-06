@@ -107,24 +107,28 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             // Função para calcular as contagens de tags
-            function countTags(topArtistsWithTags) {
+            function countTags(topArtistsWithTags, excludedTags = []) {
                 const tagCounts = {};
-
+            
                 topArtistsWithTags.forEach((artist) => {
                     artist.tags.split(', ').forEach((tag) => {
-                        if (tagCounts[tag]) {
-                            tagCounts[tag]++;
-                        } else {
-                            tagCounts[tag] = 1;
+                        if (!excludedTags.includes(tag)) { // Verifica se a tag não está na lista de tags excluídas
+                            if (tagCounts[tag]) {
+                                tagCounts[tag]++;
+                            } else {
+                                tagCounts[tag] = 1;
+                            }
                         }
                     });
                 });
-
+            
                 return tagCounts;
             }
+            
 
             // Preenche a segunda tabela (tags)
-            const tagCounts = countTags(topArtistsWithTags);
+            const excludedTags = ["seen live"];
+            const tagCounts = countTags(topArtistsWithTags, excludedTags);
             const sortedTags = Object.entries(tagCounts)
                 .sort((a, b) => b[1] - a[1])
                 .slice(0, 10);

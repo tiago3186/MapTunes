@@ -47,24 +47,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const lastfmusername = config.lastfmProfile;
 
     const welcomeMessage2 = document.getElementById("welcomeMessage2");
-    const tableBody = document.querySelector("tbody");
+    const tableBody = document.querySelector("#artist-table tbody");
+    const tagTableBody = document.querySelector("#tag-table tbody"); // Adicione esta linha
 
     welcomeMessage2.textContent = `Seu perfil do lastfm é ${lastfmusername}!`;
 
-    function fetchArtistTags(artistName, apiKey, limit=10) {
+    function fetchArtistTags(artistName, apiKey, limit = 10) {
         const apiUrl = `https://ws.audioscrobbler.com/2.0/?method=artist.gettoptags&artist=${artistName}&api_key=${apiKey}&format=json`;
 
         return fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            // Verifique se há tags disponíveis
-            if (data.toptags && data.toptags.tag && data.toptags.tag.length > 0) {
-                const tags = data.toptags.tag.slice(0, limit).map(tag => tag.name).join(', ');
-                return tags;
-            } else {
-                return "Nenhuma tag disponível";
-            }
-        })
+            .then(response => response.json())
+            .then(data => {
+                // Verifique se há tags disponíveis
+                if (data.toptags && data.toptags.tag && data.toptags.tag.length > 0) {
+                    const tags = data.toptags.tag.slice(0, limit).map(tag => tag.name).join(', ');
+                    return tags;
+                } else {
+                    return "Nenhuma tag disponível";
+                }
+            })
             .catch(error => {
                 console.error(`Erro ao buscar tags para ${artistName}: ${error}`);
                 return "Erro ao buscar tags";
@@ -103,6 +104,42 @@ document.addEventListener("DOMContentLoaded", () => {
                     <td>${tags}</td>
                 </tr>`;
                 tableBody.innerHTML += row;
+            });
+
+            // Função para calcular as contagens de tags
+            function countTags(topArtistsWithTags) {
+                const tagCounts = {};
+
+                topArtistsWithTags.forEach((artist) => {
+                    artist.tags.split(', ').forEach((tag) => {
+                        if (tagCounts[tag]) {
+                            tagCounts[tag]++;
+                        } else {
+                            tagCounts[tag] = 1;
+                        }
+                    });
+                });
+
+                return tagCounts;
+            }
+
+            // Preenche a segunda tabela (tags)
+            const tagCounts = countTags(topArtistsWithTags);
+            const sortedTags = Object.entries(tagCounts)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+
+            tagTableBody.innerHTML = '';
+            sortedTags.forEach((tag, index) => {
+                const position = index + 1;
+                const tagName = tag[0];
+                const tagCount = tag[1];
+                const tagRow = `<tr>
+                    <td>${position}</td>
+                    <td>${tagName}</td>
+                    <td>${tagCount}</td>
+                </tr>`;
+                tagTableBody.innerHTML += tagRow;
             });
         })
         .catch(error => console.error(error));

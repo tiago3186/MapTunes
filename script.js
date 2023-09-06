@@ -42,7 +42,7 @@ if (window.location.pathname === "/login.html") {
 document.addEventListener("DOMContentLoaded", () => {
     // Sua chave da API do Last.fm
     const apiKey = config.apiKey;
-
+    const excludedTags = ["seen live"];
     // Seu nome de usuário no Last.fm
     const lastfmusername = config.lastfmProfile;
 
@@ -54,13 +54,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function fetchArtistTags(artistName, apiKey, limit = 10) {
         const apiUrl = `https://ws.audioscrobbler.com/2.0/?method=artist.gettoptags&artist=${artistName}&api_key=${apiKey}&format=json`;
-
+    
         return fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
                 // Verifique se há tags disponíveis
                 if (data.toptags && data.toptags.tag && data.toptags.tag.length > 0) {
-                    const tags = data.toptags.tag.slice(0, limit).map(tag => tag.name).join(', ');
+                    const tags = data.toptags.tag
+                        .filter(tag => !excludedTags.includes(tag.name)) // Excluir tags indesejadas
+                        .slice(0, limit)
+                        .map(tag => tag.name)
+                        .join(', ');
                     return tags;
                 } else {
                     return "Nenhuma tag disponível";
@@ -71,6 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return "Erro ao buscar tags";
             });
     }
+    
 
     // URL da API do Last.fm para obter os artistas mais ouvidos
     const apiUrl = `https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${lastfmusername}&api_key=${apiKey}&limit=10&format=json`;
@@ -127,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
             
 
             // Preenche a segunda tabela (tags)
-            const excludedTags = ["seen live"];
+           
             const tagCounts = countTags(topArtistsWithTags, excludedTags);
             const sortedTags = Object.entries(tagCounts)
                 .sort((a, b) => b[1] - a[1])

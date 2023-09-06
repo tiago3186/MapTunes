@@ -2,7 +2,7 @@
 
 Este é um projeto simples que utiliza a API do Last.fm para exibir os top 10 artistas mais ouvidos de um usuário específico e as tags que mais aparecem. Os dados são apresentados em duas tabelas, uma para artistas e outra para tags.
 
-### O que tem hoje:
+### O que tem faz:
 - Sistema simples de login por usuário e senha, ligado à um nome específico de user da lastfm  
 - Chama a API do Lastfm e mostra o top 10 artistas e top 10 tags com atualização sempre que a página é carregada da quantidade dos scrobbles e da ordem dos artistas.
 

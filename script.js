@@ -1,6 +1,5 @@
 import config from './config.js';
 
-
 // Defina um objeto com os usernames e senhas permitidos
 const users = {
     "admin": "admin",
@@ -15,11 +14,23 @@ function checkLogin(event) {
     const password = document.getElementById("password").value;
 
     if (users[username] === password) {
-        // Se as credenciais estiverem corretas, redirecione para index.html
+        // Se as credenciais estiverem corretas, armazene o nome de usuário no localStorage
+        localStorage.setItem("username", username);
+
+        // Redirecione para index.html
         window.location.href = "index.html";
     } else {
         alert("Credenciais incorretas. Tente novamente.");
     }
+}
+
+// Função para fazer o logout
+function logout() {
+    // Limpar o nome de usuário armazenado no localStorage
+    localStorage.removeItem("username");
+    
+    // Redirecionar para a página de login
+    window.location.href = "login.html";
 }
 
 // Verifica se estamos na página de login
@@ -36,7 +47,12 @@ if (window.location.pathname === "/login.html") {
         // Se não houver um nome de usuário, redirecione de volta para a página de login
         window.location.href = "login.html";
     }
+
+    // Adicione um evento de clique ao botão de logout
+    const logoutButton = document.getElementById("logoutButton");
+    logoutButton.addEventListener("click", logout);
 }
+
 
 
 document.addEventListener("DOMContentLoaded", () => {

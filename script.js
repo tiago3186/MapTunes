@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Sua chave da API do Last.fm
-    const apiKey = "667419cf04773a135c8ecd7372492212";
+    const apiKey = "";
     
     // Seu nome de usuário no Last.fm
-    const username = "tiago-3186";
+    const username = "";
     
     // URL da API do Last.fm para obter os artistas mais ouvidos
     const apiUrl = `https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${username}&api_key=${apiKey}&limit=10&format=json`;

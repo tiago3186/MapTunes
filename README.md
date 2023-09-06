@@ -1,6 +1,6 @@
 ## MapTunes
 
-Este é um projeto simples que utiliza a API do Last.fm para exibir os top 10 artistas mais ouvidos de um usuário específico e as tags que mais aparecem. Os dados são apresentados em duas tabela HTML na página da web, uma para artistas e outra para tags.
+Este é um projeto simples que utiliza a API do Last.fm para exibir os top 10 artistas mais ouvidos de um usuário específico e as tags que mais aparecem. Os dados são apresentados em duas tabelas, uma para artistas e outra para tags.
 
 ### O que tem hoje:
 - Sistema simples de login por usuário e senha, ligado à um nome específico de user da lastfm  

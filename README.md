@@ -6,8 +6,7 @@ Este é um projeto simples que utiliza a API do Last.fm para exibir os top 10 ar
 - Sistema simples de login por usuário e senha, ligado à um nome específico de user da lastfm  
 - Chama a API do Lastfm e mostra o top 10 com atualização sempre que a página é carregada da quantidade dos scrobbles e da ordem dos artistas.
 
-![image](https://github.com/tiago3186/LastfmDisplay/assets/132753395/a04d0b00-7853-4971-86d6-2b14675f4137)
-
+![image](https://github.com/tiago3186/MapTunes/assets/132753395/515ed9cb-4b05-495c-bb8b-c98c878d88bc)
 
 ### Features que serão implementadas:
 - Baseado na tag dos artistas serão buscados em um mapa estabelecimentos (bares) que tocam música parecida com o gosto musical do usuário
